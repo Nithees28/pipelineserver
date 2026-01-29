@@ -1,26 +1,17 @@
-    agent any
+ pipeline {
+     agent any
 
-    stages {
+     stages {
+         stage('Build Docker Image') {
+             steps {
+                 sh 'docker build -t frontend-app:latest .'
+             }
+         }
 
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/Nithees28/pipelineserver.git'
-            }
-        }
-
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t frontend-app:latest .'
-            }
-        }
-
-        stage('Deploy to Kubernetes') {
-            steps {
-                sh '''
-                  kubectl apply -f deployment.yaml
-                  kubectl apply -f service.yaml
-                '''
-            }
-        }
-    }
-}
+         stage('Deploy to Kubernetes') {
+             steps {
+                 sh 'kubectl apply -f deployment.yaml && kubectl apply -f service.yaml'
+             }
+         }
+     }
+ }
