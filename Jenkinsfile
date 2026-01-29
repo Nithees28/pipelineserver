@@ -1,5 +1,3 @@
-cd ~/my-frontend-project
-nano Jenkinsfile
 pipeline {
     agent any
 
@@ -17,4 +15,3 @@ pipeline {
         }
     }
 }
-
